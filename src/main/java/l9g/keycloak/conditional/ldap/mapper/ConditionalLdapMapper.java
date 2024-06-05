@@ -110,14 +110,13 @@ public class ConditionalLdapMapper extends AbstractLDAPStorageMapper
     LOGGER.debug("beforeLDAPQuery");
   }
 
-  /*
   @Override
   public Set<String> getUserAttributes()
   {
     LOGGER.debug("getUserAttributes");
     return ConfigFactory.getAttributes();
   }
-*/
+
   private void handleConditions(List<ConfigContition> conditions,
     LDAPObject ldapUser, UserModel user, RealmModel realm)
   {

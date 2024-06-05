@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>l9g.keycloak</groupId>
   <artifactId>l9g-conditional-ldap-mapper</artifactId>
-  <version>1.1.2-kc23-SNAPSHOT</version>
+  <version>1.1.2-kc24-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>l9g-conditional-ldap-mapper</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <keycloak.version>23.0.7</keycloak.version>
+    <keycloak.version>24.0.5</keycloak.version>
     <keycloak.dist>quarkus</keycloak.dist>
     <maven.compiler.release>17</maven.compiler.release>
   </properties>
