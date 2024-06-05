@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Thorsten Ludewig (t.ludewig@gmail.com).
+ * Copyright 2024 Thorsten Ludewig (t.ludewig@gmail.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,8 @@
  */
 package l9g.keycloak.conditional.ldap.mapper.config;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import java.util.List;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,24 +25,12 @@ import lombok.Setter;
  * @author Thorsten Ludewig (t.ludewig@gmail.com)
  */
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JacksonXmlRootElement(localName = "config")
-public class Config
+@Setter
+public class UpdatedAt
 {
   @JacksonXmlProperty(isAttribute = true)
-  private String version;
+  private String format;
 
-  @Setter
-  private String description;
-
-  @Setter
-  private UpdatedAt updatedAt;
-
-  @JacksonXmlProperty(localName = "condition")
-  @JacksonXmlElementWrapper(useWrapping = false)
-  List<ConfigContition> configConditions;
-  
-  @JacksonXmlProperty(localName = "mapper")
-  @JacksonXmlElementWrapper(useWrapping = false)
-  List<ConfigMapper> configMappers;
+  @JacksonXmlText
+  private String value;
 }

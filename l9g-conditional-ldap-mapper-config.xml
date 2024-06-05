@@ -1,6 +1,8 @@
 <config version="1.0">
   <description>L9G conditional ldap mapper</description>
   
+  <updateAt format="ASN.1">modifyTimestamp</updateAt>
+  
   <condition ldapAttribute="dn" endsWith="ou=people,o=ostfalia.de,dc=sonia,dc=de">
     <condition ldapAttribute="soniaInstitute" equals="11">
       <mapper userRole="USER-RECHENZENTRUM"/>

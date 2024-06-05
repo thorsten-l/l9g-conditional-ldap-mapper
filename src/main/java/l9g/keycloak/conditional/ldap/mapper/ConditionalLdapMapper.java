@@ -17,10 +17,12 @@ package l9g.keycloak.conditional.ldap.mapper;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import l9g.keycloak.conditional.ldap.mapper.config.Config;
 import l9g.keycloak.conditional.ldap.mapper.config.ConfigContition;
 import l9g.keycloak.conditional.ldap.mapper.config.ConfigFactory;
 import l9g.keycloak.conditional.ldap.mapper.config.ConfigMapper;
+import l9g.keycloak.conditional.ldap.mapper.config.UpdatedAt;
 import org.jboss.logging.Logger;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.RealmModel;
@@ -37,7 +39,8 @@ import org.keycloak.storage.ldap.mappers.AbstractLDAPStorageMapper;
  */
 public class ConditionalLdapMapper extends AbstractLDAPStorageMapper
 {
-  private final static Logger LOGGER = Logger.getLogger(ConditionalLdapMapper.class);
+  private final static Logger LOGGER = Logger.getLogger(
+    ConditionalLdapMapper.class);
 
   public ConditionalLdapMapper(
     ComponentModel mapperModel, LDAPStorageProvider ldapProvider)
@@ -55,6 +58,30 @@ public class ConditionalLdapMapper extends AbstractLDAPStorageMapper
 
     if (config != null)
     {
+      if (config.getUpdatedAt() != null
+        && !Util.isNullOrEmpty(config.getUpdatedAt().getValue()))
+      {
+        UpdatedAt updateAt = config.getUpdatedAt();
+        String ldapValue = ldapUser.getAttributeAsString(updateAt.getValue());
+        String value = "0";
+
+        if (ldapValue != null)
+        {
+          if ("ASN.1".equalsIgnoreCase(updateAt.getFormat()))
+          {
+            value = Long.toString(Util.asn1ToSeconds(ldapValue));
+          }
+          else
+          {
+            value = (ldapValue.trim().length() > 0) ? ldapValue : "0";
+          }
+        }
+
+        LOGGER.debug("handle updatedAt = " + value);
+        user.setAttribute(ConfigFactory.ATTRIBUTE_UPDATED_AT,
+          Collections.singletonList(value));
+      }
+
       handleConditions(config.getConfigConditions(), ldapUser, user, realm);
       handleMappers(config.getConfigMappers(), user, realm);
     }
@@ -73,12 +100,21 @@ public class ConditionalLdapMapper extends AbstractLDAPStorageMapper
   @Override
   public UserModel proxy(LDAPObject ldapUser, UserModel user, RealmModel realm)
   {
+    LOGGER.debug("proxy");
     return user;
   }
 
   @Override
-  public void beforeLDAPQuery(LDAPQuery ldapq)
+  public void beforeLDAPQuery(LDAPQuery query)
   {
+    LOGGER.debug("beforeLDAPQuery");
+  }
+
+  @Override
+  public Set<String> getUserAttributes()
+  {
+    LOGGER.debug("getUserAttributes");
+    return ConfigFactory.getAttributes();
   }
 
   private void handleConditions(List<ConfigContition> conditions,
