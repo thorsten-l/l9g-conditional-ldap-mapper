@@ -100,14 +100,12 @@ public class ConditionalLdapMapper extends AbstractLDAPStorageMapper
   @Override
   public UserModel proxy(LDAPObject ldapUser, UserModel user, RealmModel realm)
   {
-    LOGGER.debug("proxy");
     return user;
   }
 
   @Override
   public void beforeLDAPQuery(LDAPQuery query)
   {
-    LOGGER.debug("beforeLDAPQuery");
   }
 
   @Override
