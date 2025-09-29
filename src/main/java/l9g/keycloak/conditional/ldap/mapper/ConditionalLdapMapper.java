@@ -185,7 +185,8 @@ public class ConditionalLdapMapper extends AbstractLDAPStorageMapper
           RoleModel role = realm.getRole(roleName);
           if (role == null)
           {
-            realm.addRole(roleName, roleName);
+            // realm.addRole(roleName, roleName);
+            realm.addRole(roleName);
             role = realm.getRole(roleName);
             role.setDescription(config.getDescription());
           }
