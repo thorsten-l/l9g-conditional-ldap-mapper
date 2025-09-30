@@ -111,7 +111,7 @@ public class ConditionalLdapMapper extends AbstractLDAPStorageMapper
   @Override
   public Set<String> getUserAttributes()
   {
-    LOGGER.debug("getUserAttributes");
+    // LOGGER.debug("getUserAttributes");
     return ConfigFactory.getAttributes();
   }
 

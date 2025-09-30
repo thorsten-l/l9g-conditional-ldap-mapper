@@ -31,16 +31,16 @@ public class ConditionalLdapMapperFactory
   extends AbstractLDAPStorageMapperFactory
   implements LDAPStorageMapperFactory<LDAPStorageMapper>
 {
-  private final static Logger LOGGER = Logger.getLogger(
-    ConditionalLdapMapperFactory.class);
+  // private final static Logger LOGGER = Logger.getLogger(
+  //  ConditionalLdapMapperFactory.class);
 
   public static final String PROVIDER_ID = "l9g-conditional-ldap-mapper";
-
+  
   @Override
   protected AbstractLDAPStorageMapper createMapper(ComponentModel cm,
     LDAPStorageProvider ldapsp)
   {
-    LOGGER.debug("createMapper");
+    // LOGGER.debug("createMapper");
     return new ConditionalLdapMapper(cm, ldapsp);
   }
 
