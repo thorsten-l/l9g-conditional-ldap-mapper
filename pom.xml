@@ -10,7 +10,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <keycloak.version>26.7.2</keycloak.version>
+    <keycloak.version>26.7.3</keycloak.version>
     <keycloak.dist>quarkus</keycloak.dist>
     <maven.compiler.release>21</maven.compiler.release>
   </properties>
@@ -112,9 +112,9 @@
               </transformers>
               <artifactSet>
                 <includes>
-                  <include>com.fasterxml.jackson.core:jackson-core</include>
-                  <include>com.fasterxml.jackson.core:jackson-databind</include>
-                  <include>com.fasterxml.jackson.core:jackson-annotations</include>
+                  <!-- jackson-core/-databind/-annotations are provided by Keycloak itself.
+                       Never bundle them: a shaded older version shadows Keycloak's and
+                       breaks e.g. WebAuthn (CBOR parsing, NoSuchFieldError). -->
                   <include>com.fasterxml.jackson.dataformat:jackson-dataformat-xml</include>
                   <include>com.fasterxml.woodstox:woodstox-core</include>
                   <include>org.codehaus.woodstox:stax2-api</include>
